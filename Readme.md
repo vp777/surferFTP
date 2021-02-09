@@ -45,7 +45,7 @@ Scanning the internal network of a target:
 ```
 
 <p align="center">
-  <img width="580" src="images/port.gif"/>
+  <img width="680" src="images/port.gif"/>
 </p>
 
 ## TCP Service Banner Disclosure:
@@ -82,7 +82,7 @@ Extracting the banners of a target network:
 It is noted that the FTP client will normally wait for the data channel connection to time out before returning the data. To avoid this delay, the parameter q is passed to the script which indicates the number of bytes the client should expect on the data channel. This number is passed in the response of the SIZE and RETR commands and allows the client to end the connection as soon as the specified numbers of bytes are received.
 
 <p align="center">
-  <img width="580" src="images/banner.gif"/>
+  <img width="680" src="images/banner.gif"/>
 </p>
 
 ## Private IP Disclosure (ssrf_leakyftp.sh):
@@ -148,7 +148,11 @@ or
 
 ## Interesting resources
 https://hackerone.com/reports/1040166
+
 https://bugzilla.mozilla.org/show_bug.cgi?id=370559
+
 https://github.com/chromium/chromium/commit/a1cea36673186829ab5d1d1408ac50ded3ca5850
+
 https://web.archive.org/web/20070317052623/http://bindshell.net/papers/ftppasv/ftp-client-pasv-manipulation.pdf
+
 https://soroush.secproject.com/blog/2009/11/finding-vulnerabilities-of-yaftp-1-0-14-a-client-side-ftp-application/
