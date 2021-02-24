@@ -5,7 +5,7 @@ A malicious FTP server is hosted by the scripts and all it takes to run the atta
 2. TCP Service Banner Disclosure
 3. Server Private IP Disclosure
 
-## Reliable TCP Port Scanning (ssrf_pasvaggresvftp.sh):
+## Reliable TCP Port Scanning:
 This is a variation of the FTP bounce attack but instead of using the active mode, since we are attacking the client, we are using the passive mode.
 The key element to run this attack is to have the client establish the data channel through the PASV command. The PASV is the most commonly supported command that allows the server to specify the IP and PORT where the client has to connect to establish the data channel and receive the requested data. To perform the port scanning, the malicious server simply sets the IP and PORT to the target we want to test. Then based on the response of the FTP client we can determine the status of the port:
 1. Open Port: the client will normally send a command after the PASV response
@@ -93,7 +93,7 @@ It is noted that the FTP client will normally wait for the data channel connecti
   <img width="680" src="images/banner.gif"/>
 </p>
 
-## Private IP Disclosure (ssrf_leakyftp.sh):
+## Private IP Disclosure:
 
 Here we try to have the client use the active mode to establish the data channel by rejecting any commands that attempt to establish a passive mode channel. In active mode (e.g. commands PORT, EPRT, LPRT) the client is expected to send the IP where it listens to receive the requested data. That IP should be the private IP on the interface used to establish the control channel with the FTP server.
 
@@ -144,7 +144,7 @@ The directory edgyFTP contains a modified version of leakyFTP that works on IE/E
 3. Use the identified network ranges to scan the internal network of the target for some  <a href="https://blog.assetnote.io/2021/01/13/blind-ssrf-chains/">interesting services</a>
 Extra: depending on the service, you can use the banner disclosure to verify the target or just to prove the impact of the SSRF issue.
 Bonus: in case we are dealing specifically with XXE, one can also use <a href="https://github.com/vp777/metahttp">metahttp</a> to identify potentially interesting resources. 
-It is noted that since metahttp can also scan hostnames, one can replace the first two steps described here with the generation of hostnames that might resolve to the IP of the target service. evilFTP and metahttp were created at the same time and were originally part of the same repository.
+It is noted that since metahttp can also scan hostnames, one can replace the first two steps described here with the generation of hostnames that might resolve to the IP of the target service. evilFTP and metahttp were originally part of the same repository.
 
 Example:
 Assuming we are hunting for some solr instances which we know they run on port 8983 and would normally host a resource under the path: /solr/admin/cores
