@@ -10,7 +10,15 @@ This is a variation of the FTP bounce attack but instead of using the active mod
 The key element to run this attack is to have the client establish the data channel through the PASV command. The PASV is the most commonly supported command that allows the server to specify the IP and PORT where the client has to connect to establish the data channel and receive the requested data. To perform the port scanning, the malicious server simply sets the IP and PORT to the target we want to test. Then based on the response of the FTP client we can determine the status of the port:
 1. Open Port: the client will normally send a command after the PASV response
 ```
-> [...SNIP...]
+< 220 SEXYFTP
+> USER anonymous in 11ms
+< 331 User name okay, need password.
+> PASS ftp@example.com in 9ms
+< 230 Login successful
+> PWD in 4ms
+< 257 /
+> EPSV in 5ms
+< 500 What is this
 > PASV in 6ms
 < 227 Entering PASSIVE Mode (172,17,0,1,31,68)
 > **RETR** afile in 5ms
@@ -98,11 +106,11 @@ The directory edgyFTP contains a modified version of leakyFTP that works on IE/E
 
 ## Brief overview of the affected clients
 
-|                       | curl[1]      | Java Oracle FTP Client[2] | .NET * FTP Client   |  libxml[3]  | (headless) browsers   | IE/Edge (pre-chromium)  | *[4] |
-| -------------         |:-----------: |:------------------------: |:------------------: |:-------: | :-------------------: | :--------------------:  | :--: |
-| Port Scanning         | ✔           | ✔                         |       ❌            |  ✔      |    ❌                  |  ❌                     | ✔    |
-| Banner Disclosure     | ✔           | ✔ [5]                     |       ❌            |  ✔      |    ❌                  |  ❌                     | ✔    |
-| Private IP Disclosure | ❌           | ✔                         |       ❌            |  ❌      |    ❌                  |  ✔                     | ✓    |
+|                       | curl[1]      | Java Oracle FTP Client[2] | .NET * FTP Client     |  libxml[3]  | (headless) browsers  | *[4] |
+| -------------         |:-----------: |:------------------------: |:------------------:   |:-------: | :-------------------:   | :--: |
+| Port Scanning         | ✔           | ✔                         |       ❌              |  ✔      |    ❌                    | ✔    |
+| Banner Disclosure     | ✔           | ✔ [5]                     |       ❌              |  ✔      |    ❌                    | ✔    |
+| Private IP Disclosure | ❌           | ✔                         |       ❌              |  ❌      |    ❌ [6]                | ✓    |
 
 [1] curl fixed the issues in version 7.74.0 ([CVE-2020-8284](https://hackerone.com/reports/1040166))
 
@@ -113,6 +121,8 @@ The directory edgyFTP contains a modified version of leakyFTP that works on IE/E
 [4] This is what one can expect from the rest of the FTP clients
 
 [5] Java makes use of MeteredStream and doesn't completely respect the value provided in the -q parameter. The value provided in the -q parameter is most likely rounded to the nearest multiple of the size of the internally used buffer in the MeteredStream class.
+
+[6] All major browsers except IE and Edge pre-chromium
 
 ## FAQ
 <pre>
