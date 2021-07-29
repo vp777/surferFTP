@@ -1,6 +1,6 @@
-evilFTP is a set of scripts implementing some attacks against overly trusting FTP clients to extend our capabilities when exploiting Server-Side Request Forgery (SSRF) issues. 
+surferFTP is a set of scripts implementing some attacks against overly trusting FTP clients to extend our capabilities when exploiting Server-Side Request Forgery (SSRF) issues. 
 
-A malicious FTP server is hosted by the scripts and all it takes to run the attacks is to have the client interact with the FTP server (e.g. download a file, list the contents of a directory). Even though the prerequisites are simple, it's not very common in practice to have an attacker with the capability of directing a client to interact with an FTP server. Amongst the few cases where this is possible is within the context of web browsers, since the contents of a page can be controlled by the attacker and may contain references to resources hosted by an FTP server. Another interesting case is when we are dealing with an SSRF issue which is also the primary target of evilFTP. With evilFTP and given an SSRF, one could also get:
+A malicious FTP server is hosted by the scripts and all it takes to run the attacks is to have the client interact with the FTP server (e.g. download a file, list the contents of a directory). Even though the prerequisites are simple, it's not very common in practice to have an attacker with the capability of directing a client to interact with an FTP server. Amongst the few cases where this is possible is within the context of web browsers, since the contents of a page can be controlled by the attacker and may contain references to resources hosted by an FTP server. Another interesting case is when we are dealing with an SSRF issue which is also the primary target of surferFTP. With surferFTP and given an SSRF, one could also get:
 1. Reliable TCP Port Scanning
 2. TCP Service Banner Disclosure
 3. Server Private IP Disclosure
@@ -114,7 +114,7 @@ The directory edgyFTP contains a modified version of leakyFTP that works on IE/E
 
 [1] curl fixed the issues in version 7.74.0 ([CVE-2020-8284](https://hackerone.com/reports/1040166))
 
-[2] The issues with the Java Oracle FTP client will be resolved in a future update.
+[2] The issues with the Java Oracle FTP client should be resolved in the July 2021 CPU ([CVE-2021-2341](https://www.oracle.com/security-alerts/cpujul2021.html))
 
 [3] Opened an issue [here](https://gitlab.gnome.org/GNOME/libxml2/-/issues/209)
 
